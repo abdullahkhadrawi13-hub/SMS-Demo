@@ -1,0 +1,22 @@
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* 1. إلغاء الارتفاع الثابت وجعله مرناً */
+  height: auto; 
+  
+  /* 2. إضافة مسافة داخلية (فوق وتحت الشعار) ليعطي الـ header مظهراً متناسقاً */
+  padding: 20px 0; 
+  
+  background-color: white;
+  
+  /* 3. المسافة تحت الـ header ليفصل بينه وبين الـ Component القادم */
+  margin-bottom: 20px; 
+}
+
+.logo {
+  /* 4. التحكم في الحجم عن طريق العرض مباشرة لتكبيرها كما تحب */
+  width: 320px;     /* يمكنك زيادة هذا الرقم (مثلاً 350px) إذا أردتها أكبر */
+  height: auto;     /* للمحافظة على أبعاد الصورة بدون تشويه */
+}

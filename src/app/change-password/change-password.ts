@@ -10,32 +10,50 @@ import { Router } from '@angular/router';
 })
 export class ChangePassword {
   constructor(
-  private authService: AuthService,
-  private router: Router
-) {}
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
+  errorMessage = '';
+
 
   changePassword(
- currentPassword:string,
- newPassword:string,
- confirmNewPassword:string
-){
+    currentPassword: string,
+    newPassword: string,
+    confirmNewPassword: string
+  ) {
 
-const data = {
- currentPassword,
- newPassword,
- confirmNewPassword
-};
+    if (newPassword !== confirmNewPassword) {
+    this.errorMessage = 'New password and confirm password do not match';
+    return;
+  }
 
+  this.errorMessage = '';
 
-this.authService.changePassword(data)
-.subscribe(response=>{
+    const data = {
+      currentPassword,
+      newPassword,
+      confirmNewPassword
+    };
 
- alert(response);
+    this.authService.changePassword(data)
+      .subscribe({
+        next: (response) => {
 
- this.router.navigate(['/dashboard']);
+          alert('Password Changed Successfully');
 
-});
+          // الانتقال إلى Dashboard
+          this.router.navigate(['/dashboard']);
 
-}
+        },
+         error: (err) => {
+
+        // الخطأ القادم من Backend
+        this.errorMessage = 'Current password is incorrect';
+
+      }
+      });
+
+  }
 
 }

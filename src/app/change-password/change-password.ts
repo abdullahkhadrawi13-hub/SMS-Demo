@@ -16,6 +16,12 @@ export class ChangePassword {
 
   errorMessage = '';
 
+  showPassword: boolean[] = [false, false, false];
+
+togglePassword(index: number) {
+  this.showPassword[index] = !this.showPassword[index];
+}
+
 
   changePassword(
     currentPassword: string,
@@ -39,6 +45,7 @@ export class ChangePassword {
     this.authService.changePassword(data)
       .subscribe({
         next: (response) => {
+           console.log('Success', response);
 
           alert('Password Changed Successfully');
 

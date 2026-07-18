@@ -14,6 +14,10 @@ export class Login {
     private router: Router
   ) { }
 
+showPassword = false;
+togglePassword() {
+  this.showPassword = !this.showPassword;
+}
 
  login(loginId: string, password: string) {
 

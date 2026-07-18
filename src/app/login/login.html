@@ -6,10 +6,15 @@
     <input id="username" type="text" #username />
 
     <label for="password">Password :</label>
-    <input id="password" type="password" #password />
+    <div class="password-container">
+      <input id="password" [type]="showPassword ? 'text' : 'password'" #password />
+      <button type="button" (click)="togglePassword()">👁️‍🗨️</button>
+    </div>
 
     <div class="buttons">
-      <button class="login-btn" type="button" (click)="login(username.value, password.value)">Log In</button>
+      <button class="login-btn" type="button" (click)="login(username.value, password.value)">
+        Log In
+      </button>
     </div>
   </form>
 </div>

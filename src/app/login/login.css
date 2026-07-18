@@ -1,3 +1,4 @@
+
 /* توسيط الفورم */
 .login-container {
   display: flex;
@@ -30,10 +31,12 @@
 
 
 .login-form input {
+  width: 100%;
   padding: 10px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 .buttons {
@@ -57,4 +60,24 @@
   background-color: #28a745;
   color: white;
   
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 45px;
+}
+
+.password-container button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
 }

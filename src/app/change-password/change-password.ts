@@ -44,8 +44,7 @@ togglePassword(index: number) {
 
     this.authService.changePassword(data)
       .subscribe({
-        next: (response) => {
-           console.log('Success', response);
+        next: () => {
 
           alert('Password Changed Successfully');
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { AuthService } from '../services/auth';
 import { Router } from '@angular/router';
 
@@ -9,45 +9,64 @@ import { Router } from '@angular/router';
   styleUrl: './login.css',
 })
 export class Login {
+
   constructor(
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
-showPassword = false;
-togglePassword() {
-  this.showPassword = !this.showPassword;
-}
+  errorMessage = signal('');
 
- login(loginId: string, password: string) {
+  showPassword = false;
 
-  const data = {
-    loginId: loginId,
-    password: password
-  };
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
 
-  this.authService.login(data)
-    .subscribe(response => {
-      
-      localStorage.setItem(
-        'token',
-        response.token
-      );
+  login(loginId: string, password: string) {
+
+    this.errorMessage.set('');
+
+    const data = {
+      loginId: loginId,
+      password: password
+    };
 
 
-      if(response.mustChangePassword){
+    this.authService.login(data).subscribe(
 
-        this.router.navigate(['/change-password']);
+      (response) => {
+
+        localStorage.setItem(
+          'token',
+          response.token
+        );
+
+
+        if (response.mustChangePassword) {
+
+          this.router.navigate(['/change-password']);
+
+        } else {
+
+          this.router.navigate(['/dashboard']);
+
+        }
+
+      },
+
+
+      (err) => {
+
+        this.errorMessage.set(
+          'Invalid username or password'
+        );
 
       }
-      else{
 
-        this.router.navigate(['/dashboard']);
+    );
 
-      }
+  }
 
-    });
-
-}
 }

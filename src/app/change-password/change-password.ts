@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { AuthService } from '../services/auth';
 import { Router } from '@angular/router';
 
@@ -9,18 +9,19 @@ import { Router } from '@angular/router';
   styleUrl: './change-password.css',
 })
 export class ChangePassword {
+
   constructor(
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
-  errorMessage = '';
+  errorMessage = signal('');
 
   showPassword: boolean[] = [false, false, false];
 
-togglePassword(index: number) {
-  this.showPassword[index] = !this.showPassword[index];
-}
+  togglePassword(index: number) {
+    this.showPassword[index] = !this.showPassword[index];
+  }
 
 
   changePassword(
@@ -30,11 +31,17 @@ togglePassword(index: number) {
   ) {
 
     if (newPassword !== confirmNewPassword) {
-    this.errorMessage = 'New password and confirm password do not match';
-    return;
-  }
 
-  this.errorMessage = '';
+      this.errorMessage.set(
+        'New password and confirm password do not match'
+      );
+
+      return;
+    }
+
+
+    this.errorMessage.set('');
+
 
     const data = {
       currentPassword,
@@ -42,23 +49,27 @@ togglePassword(index: number) {
       confirmNewPassword
     };
 
-    this.authService.changePassword(data)
-      .subscribe({
-        next: () => {
 
-          alert('Password Changed Successfully');
+    this.authService.changePassword(data).subscribe(
 
-          // الانتقال إلى Dashboard
-          this.router.navigate(['/dashboard']);
+      () => {
 
-        },
-         error: (err) => {
+        alert('Password Changed Successfully');
 
-        // الخطأ القادم من Backend
-        this.errorMessage = 'Current password is incorrect';
+        this.router.navigate(['/dashboard']);
+
+      },
+
+
+      (err) => {
+
+        this.errorMessage.set(
+          'Current password is incorrect'
+        );
 
       }
-      });
+
+    );
 
   }
 

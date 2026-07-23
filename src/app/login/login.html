@@ -10,6 +10,11 @@
       <input id="password" [type]="showPassword ? 'text' : 'password'" #password />
       <button type="button" (click)="togglePassword()">👁️‍🗨️</button>
     </div>
+    @if (errorMessage()) {
+  <p class="error-message">
+    {{ errorMessage() }}
+  </p>
+}
 
     <div class="buttons">
       <button class="login-btn" type="button" (click)="login(username.value, password.value)">

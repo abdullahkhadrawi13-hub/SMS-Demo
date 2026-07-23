@@ -60,7 +60,7 @@ export class Login {
       (err) => {
 
         this.errorMessage.set(
-          'Invalid username or password'
+          'invalid username or password'
         );
 
       }

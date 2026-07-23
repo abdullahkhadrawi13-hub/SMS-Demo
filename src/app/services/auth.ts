@@ -20,7 +20,8 @@ export class AuthService {
   changePassword(data: any) {
     return this.http.put(
       `${this.apiUrl}/ChangePassword`,
-      data
+      data,
+      { responseType: 'text' }
     );
   }
 }

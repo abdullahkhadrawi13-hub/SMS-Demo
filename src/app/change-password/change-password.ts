@@ -64,7 +64,7 @@ export class ChangePassword {
       (err) => {
 
         this.errorMessage.set(
-          'Current password is incorrect'
+          'current password is incorrect'
         );
 
       }

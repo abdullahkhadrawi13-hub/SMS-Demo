@@ -9,39 +9,33 @@ import { Router } from '@angular/router';
   styleUrl: './change-password.css',
 })
 export class ChangePassword {
-
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
 
   errorMessage = signal('');
-
   showPassword: boolean[] = [false, false, false];
+
+  showSuccessDialog = signal(true);
 
   togglePassword(index: number) {
     this.showPassword[index] = !this.showPassword[index];
   }
-
 
   changePassword(
     currentPassword: string,
     newPassword: string,
     confirmNewPassword: string
   ) {
-
     if (newPassword !== confirmNewPassword) {
-
       this.errorMessage.set(
         'New password and confirm password do not match'
       );
-
       return;
     }
 
-
     this.errorMessage.set('');
-
 
     const data = {
       currentPassword,
@@ -49,28 +43,18 @@ export class ChangePassword {
       confirmNewPassword
     };
 
-
     this.authService.changePassword(data).subscribe(
-
       () => {
-
-        alert('Password Changed Successfully');
-
-        this.router.navigate(['/dashboard']);
-
+        this.showSuccessDialog.set(true);
       },
-
-
       (err) => {
-
-        this.errorMessage.set(
-          'current password is incorrect'
-        );
-
+        this.errorMessage.set('current password is incorrect');
       }
-
     );
-
   }
 
+  onDialogOk() {
+    this.showSuccessDialog.set(false);
+    this.router.navigate(['/dashboard']);
+  }
 }

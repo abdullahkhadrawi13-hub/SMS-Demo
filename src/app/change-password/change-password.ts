@@ -17,7 +17,7 @@ export class ChangePassword {
   errorMessage = signal('');
   showPassword: boolean[] = [false, false, false];
 
-  showSuccessDialog = signal(true);
+  showSuccessDialog = signal(false);
 
   togglePassword(index: number) {
     this.showPassword[index] = !this.showPassword[index];
